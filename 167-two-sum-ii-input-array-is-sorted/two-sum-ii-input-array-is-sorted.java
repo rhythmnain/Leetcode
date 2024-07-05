@@ -15,7 +15,7 @@ class Solution {
                 end = end-1;
             }
         }
-        return new int[]{0,0};
+        return new int[]{-1,-1};
         //  int l = 0;
         // int r = numbers.length - 1;
 
