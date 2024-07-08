@@ -1,7 +1,11 @@
 class Solution {
     public int reachNumber(int target) {
         target=Math.abs(target);
-        int start=1,end=target,mid,steps=0,pos=0;
+        int start=1;
+        int end=target;
+        int mid;
+        int steps=0;
+        int pos=0;
         long sum=0;
         while(start<=end)
         {
