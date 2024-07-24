@@ -1,41 +1,26 @@
-import java.util.HashMap;
-import java.util.Map;
-
 class Solution {
     public int romanToInt(String s) {
-        Map<Character, Integer> romanValues = new HashMap<>();
-        romanValues.put('I', 1);
-        romanValues.put('V', 5);
-        romanValues.put('X', 10);
-        romanValues.put('L', 50);
-        romanValues.put('C', 100);
-        romanValues.put('D', 500);
-        romanValues.put('M', 1000);
+        int ans = 0;
+        int num =0; 
+        int prev = 0;
 
-        int result = 0;
-        int prevValue = 0;
-
-        for (int i = s.length() - 1; i >= 0; i--) {
-            int currValue = romanValues.get(s.charAt(i));
-
-            if (currValue < prevValue) {
-                result -= currValue;
-            } else {
-                result += currValue;
+        for(int i=s.length()-1; i>=0; i--){
+            switch(s.charAt(i)){
+                case 'I' -> num = 1;
+                case 'V' -> num = 5;
+                case 'X' -> num = 10;
+                case 'L' -> num = 50;
+                case 'C' -> num = 100;
+                case 'D' -> num = 500;
+                case 'M' -> num = 1000;
             }
-
-            prevValue = currValue;
+            if(num<prev){
+                ans-=num;
+            } else{
+                ans += num;
+            }
+            prev = num;
         }
-
-        return result;
-    }
-}
-
-public class Main {
-    public static void main(String[] args) {
-        // Example usage:
-        String romanNumeral = "XXVII";
-        int result = new Solution().romanToInt(romanNumeral);
-        System.out.println("The integer equivalent of " + romanNumeral + " is: " + result);
+        return ans;
     }
 }
