@@ -1,41 +1,21 @@
-// This is approach 1
 class Solution {
     public String mergeAlternately(String word1, String word2) {
         StringBuilder sb = new StringBuilder();
-        int i = 0;
-        while (i < word1.length() || i < word2.length()) {
-            if (i < word1.length()) {
-                sb.append(word1.charAt(i));
-            }
-            if (i < word2.length()) {
-                sb.append(word2.charAt(i));
-            }
-            i++;
+        int m = word1.length();
+        int n = word2.length();
+        int cnt1 =0;
+        int cnt2 =0;
+        while(cnt1<m && cnt2<n){
+            sb.append(word1.charAt(cnt1++));
+            sb.append(word2.charAt(cnt2++));
         }
+        while(cnt1<m){
+            sb.append(word1.charAt(cnt1++));
+        }
+        while(cnt2<n){
+            sb.append(word2.charAt(cnt2++));
+        }
+
         return sb.toString();
     }
 }
-
-
-// This is approach 2
-
-// class Solution {
-//     public String mergeAlternately(String word1, String word2) {
-//         StringBuilder sb = new StringBuilder();
-//         int n = word1.length();
-//         int m = word2.length();
-//         int count1=0; 
-//         int count2=0; 
-//         while(count1<n && count2<m){
-//             sb.append(word1.charAt(count1++));
-//             sb.append(word2.charAt(count2++));
-//         }
-//         while(count1<n){
-//             sb.append(word1.charAt(count1++));
-//         }
-//         while(count2<m){
-//             sb.append(word2.charAt(count2++));
-//         }
-//         return sb.toString();
-//     }
-// }
