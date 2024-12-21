@@ -1,6 +1,10 @@
 # Write your MySQL query statement below
-select distinct a.num as consecutiveNums
-from Logs as a
-join Logs as b on a.id = b.id-1
-join Logs as c on a.id = c.id-2
-where a.num = b.num and b.num = c.num;
+with cte as (
+    select num,
+    lead(num,1) over() num1,
+    lead(num,2) over() num2
+    from logs
+
+)
+
+select distinct num ConsecutiveNums from cte where (num=num1) and (num=num2)
