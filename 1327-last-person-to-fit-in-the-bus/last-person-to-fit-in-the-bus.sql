@@ -1,4 +1,5 @@
 # Write your MySQL query statement below
+# Write your MySQL query statement below
 select a.person_name
 from Queue as a
 join Queue as b 
