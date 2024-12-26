@@ -1,5 +1,3 @@
-
-
 class Solution {
     public int[] dailyTemperatures(int[] temperatures) {
         Deque<Integer> deque = new ArrayDeque<>();
