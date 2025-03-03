@@ -1,33 +1,46 @@
 class Solution {
     public int[] pivotArray(int[] nums, int pivot) {
-        int n=nums.length;
-        List<Integer> list=new ArrayList();
-        int idx=0;
-        int pivCnt=0;
+        int n = nums.length;
 
-        // Traverse the array to count pivot elements and segregate elements
-        for(int i=0; i<n; i++){
-            if(nums[i]==pivot){
-                pivCnt++;
-            }
-            else if(nums[i]>pivot){
-                list.add(nums[i]);                
-            }
-            else{
-                nums[idx++]=nums[i];
+        // Arrays to store less-than-pivot and greater-than-pivot elements
+        int[] less = new int[n];
+        int[] high = new int[n];
+        int[] result = new int[n];
+
+        // Counters for different parts of the array
+        int count = 0; // To count the number of pivot elements
+        int j = 0; // Index for the 'less' array
+        int k = 0; // Index for the 'high' array
+
+        // Partition the input array into 'less', 'high', and count pivot occurrences
+        for (int i = 0; i < n; i++) {
+            if (nums[i] < pivot) {
+                less[j++] = nums[i];
+            } else if (nums[i] == pivot) {
+                count++;
+            } else {
+                high[k++] = nums[i];
             }
         }
 
-        // Insert pivot elements
-        for(int i=0; i<pivCnt; i++){
-            nums[idx++]=pivot;
+        // Fill the result array
+        int index = 0;
+
+        // Add elements less than the pivot
+        for (int a = 0; a < j; a++) {
+            result[index++] = less[a];
         }
 
-        // Append greater elements
-        for(int val:list){
-            nums[idx++]=val;
+        // Add the pivot element `count` times
+        for (int a = 0; a < count; a++) {
+            result[index++] = pivot;
         }
-        
-        return nums;
+
+        // Add elements greater than the pivot
+        for (int a = 0; a < k; a++) {
+            result[index++] = high[a];
+        }
+
+        return result;
     }
 }
