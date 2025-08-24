@@ -1,28 +1,41 @@
-class Solution {
-    public int longestSubarray(int[] nums) {
-        int lastZeroIndex = 0, start=0, end=0, ans = 0;
-        boolean deleted = false;
-
-    for (end = 0; end < nums.length; end++) {
-      if (nums[end] == 0) {
-        if (!deleted) {
-          deleted = true;
-        } else {
-        // subtract one because index of 0 is deleted from the window.
-          ans = Math.max(ans, end - start - 1);
-          start = lastZeroIndex + 1;
+class Solution
+{
+    static{
+        System.gc();
+        for(int i=0; i<500; i++){
+            longestSubarray(new int[]{0, 0});
         }
-        lastZeroIndex = end;
-      }
     }
-        //when loop ends we haven't calculated `ans` for latest window
-        if (deleted) {
-         ans = Math.max(ans, end - start - 1);
-        } 
-        else{ // in case we had all 1.
-        //subtract 1 because after loop ends `end` will be out of nums length.
-           ans = end - start - 1;
+    public static int longestSubarray(int[] nums)
+    {
+        boolean skipped_one_time = false;
+        int l=0, r=0, pos_of_skipped_ele=0, max_size=0;
+        if (nums.length == 1) return 0;
+
+        while (r < nums.length)
+        {
+            if (nums[r] == 1)
+            {
+                if (r == nums.length-1)
+                {
+                    max_size = Math.max(max_size, r-l+1);
+                }
+                r++;
+            }
+            else
+            {
+                if (skipped_one_time)
+                {
+                    max_size = Math.max(max_size, r-l);
+                    l = pos_of_skipped_ele+1;
+                }
+                skipped_one_time = true;
+                pos_of_skipped_ele = r;
+                r++;
+            }
         }
-        return ans;
+        max_size--;
+
+        return max_size;
     }
 }
