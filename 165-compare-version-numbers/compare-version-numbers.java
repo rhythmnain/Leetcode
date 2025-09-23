@@ -1,31 +1,29 @@
 class Solution {
     public int compareVersion(String version1, String version2) {
-        String[] a = version1.split("\\."), b = version2.split("\\.");
-        boolean changed = false;
-        if (a.length < b.length) {
-            String[] temp = a;
-            a = b;
-            b = temp;
-            changed = true;
-        }
-        for (int i = 0; i < a.length; i++) {
-            String one = removeLeadingZeros(a[i]), two = i >= b.length ? "0" : removeLeadingZeros(b[i]);
-            if (!one.equals(two)) {
-                if (one.length() > two.length()) return changed ? -1 : 1;
-                else if (one.length() < two.length()) return changed? 1 : -1;
-                else {
-                    for (int j = 0; j < one.length(); j++) {
-                        if (one.charAt(j) > two.charAt(j)) return changed ? -1 : 1;
-                        else if (one.charAt(j) < two.charAt(j)) return changed ? 1 : -1;
-                    }
-                }
-            }
-        }
-        return 0;
-    }
+        int i = 0, j = 0;
+        int n = version1.length(), m = version2.length();
 
-    private static String removeLeadingZeros(String s) {
-        for (int i = 0; i < s.length(); i++) if (s.charAt(i) != '0') return s.substring(i);
-        return "0";
+        while (i < n || j < m) {
+            long num1 = 0, num2 = 0; // long to avoid overflow
+
+            while (i < n && version1.charAt(i) != '.') {
+                num1 = num1 * 10 + (version1.charAt(i) - '0');
+                i++;
+            }
+
+            while (j < m && version2.charAt(j) != '.') {
+                num2 = num2 * 10 + (version2.charAt(j) - '0');
+                j++;
+            }
+
+            if (num1 > num2) return 1;
+            if (num1 < num2) return -1;
+
+            // skip dots
+            if (i < n && version1.charAt(i) == '.') i++;
+            if (j < m && version2.charAt(j) == '.') j++;
+        }
+
+        return 0;
     }
 }
